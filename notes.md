@@ -10,6 +10,19 @@
     - Installed Git status Bash prompt and my other bash customisations
 
 # Preparation
+## System
+ - Installed **Java (v17)** via apt:
+   `$ sudo apt install` openjdk-17-jre-headless  # version 17.0.5+8-2ubuntu1~22.04
+   `$ java --version`   # openjdk 17.0.5 2022-10-18 | OpenJDK Runtime Environment (build 17.0.5+8-Ubuntu-2ubuntu122.04) | OpenJDK 64-Bit Server VM (build 17.0.5+8-Ubuntu-2ubuntu122.04, mixed mode, sharing)
+ - Installed **Eclipse (2022-12)** via Snap store
+   `$ sudo snap install --classic eclipse`
+   Launched successfully with `$ eclipse`
+ - Installed Maven via apt:
+   `$ sudo apt install maven`
+
+## Repo
+ - Created **'canva' repo** on GitHub; cloned locally at `~/projects/canva`
+    (Used Java gitignore)
+ - Created **branch `round1`**
 
 # Session
-
