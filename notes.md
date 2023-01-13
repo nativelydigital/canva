@@ -24,5 +24,9 @@
  - Created **'canva' repo** on GitHub; cloned locally at `~/projects/canva`
     (Used Java gitignore)
  - Created **branch `round1`**
+ - Created a new Maven project to work with
+    - Used `maven-archetype-quickstart` (`org.apache.maven.archetypes`) for a simple JAR CLI app
+    - Group  `com.nativelydigital.canva`**, artifact `round1`
+    - Package `com.nativelydigital.canva.round1`
 
 # Session
