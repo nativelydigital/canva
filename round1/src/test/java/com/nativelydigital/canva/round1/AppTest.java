@@ -9,8 +9,14 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 public class AppTest {
+	
 	@Test
-	public void shouldAnswerWithTrue() {
+	public void pureJUnit_noHamcrest() {
+		// assert*(expected, actual);    // in org.junit.jupiter.api.Assertions.*
+	}
+	
+	@Test
+	public void shouldBeTrue() {
 		Assertions.assertTrue(true); // JUnit
 		assertThat(true, equalTo(true)); // Hamcrest
 	}
