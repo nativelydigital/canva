@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 class DesignServiceImpl implements DesignService {
 
 	private static Map<String, Design> designsByDesignId = new HashMap<>();
-	private static Map<String, List<Design>> designsByCreatedUserId = new HashMap<>();
+	private static Map<String, List<Design>> designsByUserId = new HashMap<>(); // All designs accessible to a particular user
 
 	/** Creates a design and returns the design id. */
 	@Override
@@ -17,11 +17,11 @@ class DesignServiceImpl implements DesignService {
 		// Assume authContext is not null
 		String newDesignId = Design.createDesignId();
 
-		Design design = new Design(newDesignId, designContent, ctx.userId);
+		Design design = new Design(newDesignId, designContent, ctx.userId, new ArrayList<>());
 
 		designsByDesignId.put(newDesignId, design);
 
-		designsByCreatedUserId.compute(ctx.userId, (userId, existingList) -> {
+		designsByUserId.compute(ctx.userId, (userId, existingList) -> {
 			List<Design> list = existingList != null ? existingList : new ArrayList<>();
 			list.add(design);
 			return list;
@@ -40,17 +40,21 @@ class DesignServiceImpl implements DesignService {
 			return null;
 		}
 
-		if (!(ctx.userId != null && ctx.userId.equals(design.createdByUserId()))) {
-			return null;
+		if (ctx.userId != null && ctx.userId.equals(design.createdByUserId())) {
+			return design.designContent();
+		}
+		
+		if (ctx.userId != null && design.sharedWithUserIds().contains(ctx.userId)) {
+			return design.designContent();
 		}
 
-		return design.designContent();
+		return null;
 	}
 
 	// Should return their designs plus those shared with them
 	@Override
 	public List<String> findDesigns(AuthContext ctx) {
-		List<Design> designs = designsByCreatedUserId.getOrDefault(ctx.userId, List.of());
+		List<Design> designs = designsByUserId.getOrDefault(ctx.userId, List.of());
 
 		if (designs == null) {
 			System.out.printf("Warning: designsByUserId for user ID '%s' had null list\n", ctx.userId);

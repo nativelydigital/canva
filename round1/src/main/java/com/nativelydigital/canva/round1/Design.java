@@ -1,8 +1,9 @@
 package com.nativelydigital.canva.round1;
 
+import java.util.List;
 import java.util.UUID;
 
-record Design(String designId, String designContent, String createdByUserId) {
+record Design(String designId, String designContent, String createdByUserId, List<String> sharedWithUserIds) {
 	
 	  public static String createDesignId() {
 			 return UUID.randomUUID().toString();
