@@ -55,6 +55,8 @@ public class DesignServiceImplTest {
 		assertNull(actualDesignContent);
 	}
 	
+	// TODO: Add tests for findDesign
+	
 	private static AuthContext authContext(String userId) {
 		return new AuthContext(userId);
 	}
