@@ -9,10 +9,7 @@ import java.util.stream.Collectors;
 class DesignServiceImpl implements DesignService {
 
 	private static Map<String, Design> designsByDesignId = new HashMap<>();
-	private static Map<String, List<Design>> designsByUserId = new HashMap<>();
-
-	
-	// A user should only be able to access the designs that they have created.
+	private static Map<String, List<Design>> designsByCreatedUserId = new HashMap<>();
 
 	/** Creates a design and returns the design id. */
 	@Override
@@ -24,7 +21,7 @@ class DesignServiceImpl implements DesignService {
 
 		designsByDesignId.put(newDesignId, design);
 
-		designsByUserId.compute(ctx.userId, (userId, existingList) -> {
+		designsByCreatedUserId.compute(ctx.userId, (userId, existingList) -> {
 			List<Design> list = existingList != null ? existingList : new ArrayList<>();
 			list.add(design);
 			return list;
@@ -51,7 +48,7 @@ class DesignServiceImpl implements DesignService {
 
 	@Override
 	public List<String> findDesigns(AuthContext ctx) {
-		List<Design> designs = designsByUserId.getOrDefault(ctx.userId, List.of());
+		List<Design> designs = designsByCreatedUserId.getOrDefault(ctx.userId, List.of());
 
 		if (designs == null) {
 			System.out.printf("Warning: designsByUserId for user ID '%s' had null list\n", ctx.userId);
