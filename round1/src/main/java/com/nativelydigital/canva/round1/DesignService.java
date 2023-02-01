@@ -11,4 +11,7 @@ interface DesignService {
   
   /** Returns a list of design ids that the given context has access to. */
   List<String> findDesigns(AuthContext ctx);
+  
+  /** Gives a specific user access to the design. */
+  void shareDesign(AuthContext ctx, String designId, String targetUserId);
 }

@@ -30,6 +30,7 @@ class DesignServiceImpl implements DesignService {
 		return newDesignId;
 	}
 
+	// Should return if created by or shared with them
 	/** Returns the design content, if the user has access to the design. */
 	@Override
 	public String getDesign(AuthContext ctx, String designId) {
@@ -46,6 +47,7 @@ class DesignServiceImpl implements DesignService {
 		return design.designContent();
 	}
 
+	// Should return their designs plus those shared with them
 	@Override
 	public List<String> findDesigns(AuthContext ctx) {
 		List<Design> designs = designsByCreatedUserId.getOrDefault(ctx.userId, List.of());
@@ -59,4 +61,12 @@ class DesignServiceImpl implements DesignService {
 		
 		return designs.stream().map(d -> d.designId()).collect(Collectors.toList());
 	}
+
+	@Override
+	public void shareDesign(AuthContext ctx, String designId, String targetUserId) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 }
